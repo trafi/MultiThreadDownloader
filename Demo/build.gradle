@@ -2,11 +2,11 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 22
-    buildToolsVersion "23.0.1"
+    buildToolsVersion "21.1.2"
 
     defaultConfig {
         applicationId "cn.aigestudio.downloader.demo"
-        minSdkVersion 4
+        minSdkVersion 14
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
