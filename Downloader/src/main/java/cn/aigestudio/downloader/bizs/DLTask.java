@@ -70,16 +70,11 @@ class DLTask implements Runnable, IDLThreadListener {
 
     @Override
     public synchronized void onFinish(DLThreadInfo threadInfo) {
-        if (null == threadInfo) {
-            if (info.hasListener) {
-                info.listener.onProgress(info.totalBytes);
-                info.listener.onFinish(info.file);
-            }
-            return;
+        if (threadInfo != null) {
+            info.removeDLThread(threadInfo);
+            DLDBManager.getInstance(context).deleteThreadInfo(threadInfo.id);
+            Log.d(TAG, "Thread size " + info.threads.size());
         }
-        info.removeDLThread(threadInfo);
-        DLDBManager.getInstance(context).deleteThreadInfo(threadInfo.id);
-        Log.d(TAG, "Thread size " + info.threads.size());
         if (info.threads.isEmpty()) {
             Log.d(TAG, "Task was finished.");
             DLManager.getInstance(context).removeDLTask(info.baseUrl);
